@@ -2,6 +2,7 @@
 
 int main(){
 
-    printf("Hola Mundo Feo");
+    printf("Hola Mundo Feo \n");
+    printf("Aqui estamos modificando el archivo \n");
 
 }
