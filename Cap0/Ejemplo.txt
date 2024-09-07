@@ -1,1 +1,3 @@
-Texto de prueba paa realizar un pull.
+Texto de prueba para realizar un pull.
+Ya realize el pull!
+Ahora guardémoslo de vuelta en el remote.
