@@ -1,0 +1,1 @@
+Este es la carpeta del capitulo 1, la 2da clase del curso de Programación donde haremos nuestros primeros códigos.
