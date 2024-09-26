@@ -1,1 +1,2 @@
 Tercera clase del curso.
+Introduccion a la repeticion, sintaxis de while, for y do while.
