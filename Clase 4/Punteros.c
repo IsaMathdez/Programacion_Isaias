@@ -35,7 +35,7 @@ int main(){
  
         if(menu == DIV)
         {
-            printf("\nIngresa el numerador y el denominador:");
+            printf("\nIngresa el numerador y el denominador: ");
             scanf("%f %f",&f2, &f1);
          
             if(divicion(f2,f1,&resultf) == ERR_OK)
