@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* Programa que crea y abre archivos de la estructura Alumno, ya existen tres archivos hechos a los cuales se puede acceder y agregarle datos, se pueden crear mas */
+
 // Definición de la estructura Alumno
 typedef struct {
     char nombre[50];
@@ -16,17 +18,17 @@ void abrirArchivo();
 void Leer(FILE *);
 void agregarRegistro();
 void buscarRegistro();
-void modificarRegistro();
+void buscarNombre();
 
 int main() {
     int opcion;
-    do {
-        printf("Menu:\n");
+    do { // Menu
+        printf("\n Menu:\n");
         printf("1. Nuevo Archivo\n");
         printf("2. Abrir Archivo\n");
         printf("3. Agregar Registro\n");
-        printf("4. Buscar Registro\n");
-        printf("5. Modificar Registro\n");
+        printf("4. Buscar por Renglon\n");
+        printf("5. Buscar por Nombre\n");
         printf("6. Salir \n");
         printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
@@ -46,10 +48,10 @@ int main() {
                 buscarRegistro();
                 break;
             case 5:
-                modificarRegistro();
+                buscarNombre();
                 break;
             case 6:
-                printf("Saliendo...\n");
+                printf(" Fue un placer :D\n");
                 break;
             default:
                 printf("Incorrecto \n");
@@ -86,12 +88,12 @@ void abrirArchivo() {
     }
     printf("Archivo '%s' abierto exitosamente.\n", nombreArchivo);
     printf("\n--------- Contenido -----------\n");
-    Leer(file);
+    Leer(file); // Muestra el contenido del archivo
     printf("--------- Fin Contenido -----------\n");
     fclose(file);
 }
 
-void Leer(FILE *ap){
+void Leer(FILE *ap){ // Funcion que lee
     Alumno alu;
     fread(&alu, sizeof(Alumno), 1, ap);
     while(!feof(ap)){
@@ -102,7 +104,7 @@ void Leer(FILE *ap){
     }
 }
 
-void agregarRegistro() {
+void agregarRegistro() { //Agrega nuevos registros (alumnos)
     FILE *file;
     char nombreArchivo[50];
     Alumno alumno;
@@ -127,7 +129,7 @@ void agregarRegistro() {
     fclose(file);
 }
 
-void buscarRegistro() {
+void buscarRegistro() { //Busca un registro por indice dentro del archivo
     FILE *file;
     char nombreArchivo[50];
     Alumno alumno;
@@ -139,8 +141,9 @@ void buscarRegistro() {
         printf("Error al abrir el archivo.\n");
         return;
     }
-    printf("Introduce el numero de renglon a buscar: ");
+    printf("Introduce el indice de renglon a buscar: ");
     scanf("%d", &renglon);
+    
     printf("\n------- Contenido Renglon %d --------\n", renglon);
     while (fread(&alumno, sizeof(Alumno), 1, file)) {
         if (i == renglon - 1) {
@@ -158,6 +161,37 @@ void buscarRegistro() {
     fclose(file);
 }
 
-void modificarRegistro(){
-    printf("Estamos en proceso \n");
-}
+void buscarNombre() { 
+    FILE *file; 
+    char nombreArchivo[50]; 
+    char nombreBuscar[50]; 
+    Alumno alumno; 
+    int encontrado = 0; 
+    printf("Introduce el nombre del archivo: "); 
+    scanf("%s", nombreArchivo); 
+    file = fopen(nombreArchivo, "rb"); //Abre en lectura
+    if (file == NULL) { 
+        printf("Error al abrir el archivo.\n");
+        return; 
+        } 
+    printf("Introduce el nombre a buscar: "); 
+    fflush(stdin);
+    gets(nombreBuscar); 
+    while (fread(&alumno, sizeof(Alumno), 1, file)) { //Lee la estructura
+        if (strcmp(alumno.nombre, nombreBuscar) == 0) { // Compara las cadenas
+            printf("Registro encontrado:\n"); 
+            printf("------------------\n");
+            printf("Nombre: %s\n", alumno.nombre); 
+            printf("Promedio: %.2f\n", alumno.promedio); 
+            printf("Carrera: %s\n", alumno.carrera); 
+            encontrado = 1; 
+            break;
+            } 
+    } 
+    if (!encontrado) { 
+         printf("Nombre '%s' no encontrado en el archivo.\n", nombreBuscar);
+    } 
+    fclose(file); 
+    }
+
+// Fue un placer :D
